@@ -1,4 +1,8 @@
 
+
+![image](https://github.com/ipsBruno/haval-h6-gwm-alexa-chatgpt-mqtt-integration/assets/6839604/20545d43-1fce-4c52-943c-d81661e90b8c)
+
+
 **Introdução:** Imagine que você possa interagir com seu veículo Haval H6 através de comandos de voz simples usando Alexa, Siri ou ChatGPT. O seu carro não só entenderia seus comandos, mas também lembraria você de carregar a bateria quando estivesse baixa. Este projeto visa superar as limitações do sistema atual de comandos do Haval, que é relativamente lento, e explorar o potencial da conectividade Internet-of-Things (IoT) para trazer uma nova dimensão de interatividade e eficiência.
 
 **Problema:** Como proprietário de um Haval H6, percebi que o sistema de comandos do veículo é lento e muitas vezes ineficiente. Através da análise do aplicativo MyGWM, identifiquei uma oportunidade de utilizar a conexão de internet do veículo para emular e executar comandos através de uma API personalizada, permitindo a integração com assistentes virtuais.
@@ -48,7 +52,7 @@ Endpoint: **vehicle/acquireVehicles**
 
 #### Comandos MQTT
 
-Aqui a lista de comandos que acreditamos ser referentes ao MQTT próprio da Haval (isso foi encontrado em um aplicativo e tratado por ChatGPT, ainda não foi testado
+Aqui a lista de comandos que acreditamos ser referentes ao MQTT próprio da Haval (isso foi encontrado em um aplicativo e tratado por ChatGPT, ainda não foi testado, vá com cuidado
 
 
 
