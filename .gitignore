@@ -131,3 +131,4 @@ dist
 
 # JetBrains WebStorm
 .idea
+scratch/*

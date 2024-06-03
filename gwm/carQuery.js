@@ -1,6 +1,7 @@
 const axios = require('../api');
 const md5 = require('md5');
 const storageManager = require('../storageManager');
+const config = require('../config');
 
 class CarQuery {
     constructor() {
@@ -25,73 +26,73 @@ class CarQuery {
         return require('crypto').randomUUID().replaceAll('-', '') + '1234'
     }
 
-    async sendCmd(instructions,remoteType,securityPassword,seqNo,type,vin) {
+    async sendCmd(instructions, remoteType, securityPassword, seqNo, type, vin) {
         var res
         try {
-            const res = await axios.execReq({
-                method: 'post',
-                url: 'vehicle/T5/sendCmd',
-                headers: this.getHeaders(),
-                body: {instructions,remoteType,securityPassword,seqNo,type,vin}
-            })
-            return res;
+            let options = {
+                headers: this.getHeaders()
+            };
+            const res = await axios.post(`${config.apiVehicleEndpoint}/vehicle/T5/sendCmd`, {
+                instructions,
+                remoteType,
+                securityPassword,
+                seqNo,
+                type,
+                vin
+            }, options);
+            return res.data;
         } catch (err) {
             console.log('Error send cmd vehicles:', err, res);
             return false;
         }
     }
-    
+
     async getChargeLogs(vin) {
-        var res
         try {
-            const res = await axios.execReq({
-                method: 'get',
-                url: 'vehicleCharge/getChargeLogs',
+            let options = {
                 headers: this.getHeaders()
-            })
+            };
+            const res = await axios.get(`${config.apiVehicleEndpoint}/vehicleCharge/getChargeLogs?vin=${vin}`, options);
             return res.data;
         } catch (err) {
-            console.log('Error vehicle basic info vehicles:', err, res);
+            console.log('Error charge logs:', err);
             return false;
         }
     }
-    
+
     async basicInfo(vin) {
-        var res
         try {
-            const res = await axios.execReq({
-                method: 'get',
-                url: 'vehicle/vehicleBasicsInfo?vin=' + vin + '&flag=true',
+            let options = {
                 headers: this.getHeaders()
-            })
-            return res;
-        } catch (err) {
-            console.log('Error vehicle basic info vehicles:', err, res);
-            return false;
-        }
-    }
-    async getLastStatus(vin) {
-        var res
-        try {
-            const res = await axios.execReq({
-                method: 'get',
-                url: 'vehicle/getLastStatus?vin='+vin,
-                headers: this.getHeaders()
-            })
+            };
+            const res = await axios.get(`${config.apiVehicleEndpoint}/vehicle/vehicleBasicsInfo?vin=${vin}&flag=true`, options);
             return res.data;
         } catch (err) {
-            console.log('Error last status vehicles:', err, res);
+            console.log('Error vehicle basic info vehicles:', err);
             return false;
         }
     }
+
+    async getLastStatus(vin) {
+        try {
+            let options = {
+                headers: this.getHeaders()
+            };
+            const res = await axios.get(`${config.apiVehicleEndpoint}/vehicle/getLastStatus?vin=${vin}`, options);
+            return res.data;
+        } catch (err) {
+            console.log('Error last status vehicles:', err);
+            return false;
+        }
+    }
+
     async acquireVehicles() {
         try {
-            const res = await axios.execReq({
-                method: 'get',
-                url: 'vehicle/acquireVehicles',
+            let options = {
                 headers: this.getHeaders()
-            })
-            return res;
+            };
+            const res = await axios.get(`${config.apiVehicleEndpoint}/vehicle/acquireVehicles`, options);
+            return res.data;
         } catch (err) {
             console.error('Error acquiring vehicles:', err);
             return false;

@@ -1,15 +1,21 @@
 const UserQuery = require('./gwm/userQuery');
 const CarQuery = require('./gwm/carQuery');
 const storageManager = require('./storageManager');
+const dotenv = require('dotenv');
 
 async function main() {
-    
+
     let userApp = new UserQuery();
     let carApp = new CarQuery();
-    
-    let vin = 'LGWFFUA59RH935162' // mude para seu vin
-    let email = "yourgwmemail@com" // mude para seu email
-    let senha = "senha" // sua senha do my gqm
+
+    let vin = process.env.VIN;
+    let email = process.env.EMAIL
+    let senha = process.env.SENHA;
+
+    if(!vin || !email || !senha) {
+        console.log('Variáveis de ambiente não configuradas');
+        return;
+    }
 
     if (!storageManager.getItem('accessToken')) {
         if (!(await userApp.login(email, senha))) {
@@ -28,6 +34,8 @@ async function main() {
 
     console.log('Client vehicles:', lastStatus);
 
+    let basicInfo = await carApp.basicInfo();
+    console.log('Basic Info logs:', basicInfo);
 }
-
+dotenv.config();
 main();
