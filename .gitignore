@@ -118,10 +118,12 @@ dist
 
 # TernJS port file
 .tern-port
-
+.env
+.vscode
+package-lock.json
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-
+node_modules
 # yarn v2
 .yarn/cache
 .yarn/unplugged
